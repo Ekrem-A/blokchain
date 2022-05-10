@@ -1,1 +1,0 @@
-var ekrem =10;
