@@ -5,31 +5,41 @@ const SHA256 = require('crypto-js/sha256');
 //npm install yardımıyla kütüphaneye eklendi
 
 class blokchain1{
-    constructor(index,timestep,data,previoushash= ''){
+    constructor(index,timestep,data,previoushash= '',){
         this.index=index;
         this.timestep=timestep;
         this.data=data;
         this.previoushash=previoushash;
-        this.hash='';
+        this.hash=this.HASH();
         
     }
+    
+    
     HASH(){
         return SHA256 (this.index+this.timestep+JSON.stringify(this.data)).toString();
 
    }
 }
+
+
 class blokchain{
     constructor(){
         this.chain=[this.ilkblok()];
     }
+    
+    
     //ilkbloğun bilgileri
     ilkblok(){
-        return new blokchain1(0,"30/03/2000",{deger:100},"0");
+        return new blokchain1(0,"30/03/2000",{deger:100},"0",);
     }
+    
+    
     //zincirin son bloğu
     sonblok(){
         return this.chain[this.chain.length-1];
     }
+    
+    
     //blok ekleme
     blokekle(yeniblok){
         yeniblok.previoushash=this.sonblok().hash;
@@ -37,6 +47,8 @@ class blokchain{
         this.chain.push(yeniblok);
  
     }
+    
+    
     //zincirin içerisindeki değerlerin kontrolünün doğruluğu
     kontrol(){
         for(var i =1; i<this.chain.length ; i++){
