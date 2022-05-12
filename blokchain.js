@@ -1,14 +1,16 @@
 
+
 const SHA256 = require('crypto-js/sha256');
 
 //sha 256 algoritması javascript kütüphanesinde default olrak bulunmadığından,
 //npm install yardımıyla kütüphaneye eklendi
 
 class blokchain1{
-    constructor(index,timestep,data,previoushash= '',){
+    constructor(index,timestep,data,transactions,previoushash= '',){
         this.index=index;
         this.timestep=timestep;
         this.data=data;
+        this.transaction=transactions;
         this.previoushash=previoushash;
         this.hash=this.HASH();
         
@@ -63,18 +65,17 @@ class blokchain{
             return false;
         }
         return true;
-    }
-    }
-
-     
+      }
+    } 
 
 }
 var eko =new blokchain();
 eko.blokekle(new blokchain1(1,"31/03/2001",{deger:8}));
 eko.blokekle(new blokchain1(2,"20/03/2001",{deger:62}));
+eko.blokekle(new blokchain1(3,"10/08/2002",{deger:142}));
 
 console.log(JSON.stringify(eko,null,8));
 
-//değer değiştirilip zincirin doğruluğu tespit ediliyor
+//bloktaki değer değiştirilip zincirin doğruluğu tespit ediliyor
 eko.chain[1].data={deger :50};
 console.log("blokzinciri doğru mu?  " + eko.kontrol());
